@@ -1,0 +1,12 @@
+knife ec2 server create ^
+-S chef-study ^
+-I ~/.ssh/chef-study.pem ^
+-I ami-82640282 ^
+--flavor t2.micro ^
+-Z ap-northeast-1c ^
+--ssh-user centos ^
+-N <nodename> ^
+-g sg-13053076 ^
+--subnet subnet-9e4081c7 ^
+--server-connect-attribute public_ip_address ^
+-r ""
