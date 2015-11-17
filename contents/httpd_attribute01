@@ -1,0 +1,1 @@
+default["httpd"]["index_content"] = "<h1>recipe attribute</h1>"

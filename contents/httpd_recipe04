@@ -1,0 +1,41 @@
+# yumでhttpdをインストール
+package "install httpd!" do
+  package_name "httpd"
+  action :install
+end
+
+# httpdのサービスを起動
+service "httpd" do
+  action [:enable, :start]
+end
+
+service "iptables" do
+  action :stop
+end
+
+# index.html
+
+file "/var/www/html/index.html" do
+  content "<h1>ohai chef</h1>"
+  action :create
+end
+
+# index2.html
+template "template test" do
+  source "index2.html"
+  path "/var/www/html/index2.html"
+  action :create
+end
+
+# index3.html
+bash "create index3.html" do
+  code "echo '<h1>bash resource</h1>' >> /var/www/html/index3.html"
+  action :run
+  not_if { File.exists?("/var/www/html/index3.html") }
+end
+
+# index4.html
+file "/var/www/html/index4.html" do
+  content node["httpd"]["index_content"]
+  action :create
+end

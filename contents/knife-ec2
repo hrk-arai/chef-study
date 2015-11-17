@@ -1,7 +1,7 @@
 knife ec2 server create ^
 -S chef-study ^
--I ~/.ssh/chef-study.pem ^
--I ami-82640282 ^
+-i ~/.ssh/chef-study.pem ^
+-I ami-41c4e42f ^
 --flavor t2.micro ^
 -Z ap-northeast-1c ^
 --ssh-user centos ^

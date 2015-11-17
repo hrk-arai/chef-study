@@ -1,0 +1,16 @@
+# yumでhttpdをインストール
+package “install httpd!” do
+  package_name "httpd"
+  action :install
+end
+
+# httpdのサービスを起動
+service “httpd” do
+  action [:enable, :start]
+end
+
+# index.html
+file "/var/www/html/index.html" do
+  content "<h1>ohai chef</h1>"
+  action :create
+end
