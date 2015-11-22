@@ -3,10 +3,10 @@ knife ec2 server create ^
 -i ~/.ssh/chef-study2.pem ^
 -I ami-4e8a4b2d ^
 --flavor t2.micro ^
--Z ap-southeast-1b ^
+-Z ap-southeast-1a ^
 --ssh-user centos ^
 -N <nodename> ^
--g sg-e3530c86 ^
---subnet subnet-95b6dce2 ^
+-g sg-abaff1ce ^
+--subnet subnet-8d0f76e8 ^
 --server-connect-attribute public_ip_address ^
 -r ""
