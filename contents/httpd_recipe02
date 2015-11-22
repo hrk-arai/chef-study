@@ -17,7 +17,7 @@ end
 
 # index2.html
 template "template test" do
-  source "index2.html"
+  source "index2.html.erb"
   path "/var/www/html/index2.html"
   action :create
 end
