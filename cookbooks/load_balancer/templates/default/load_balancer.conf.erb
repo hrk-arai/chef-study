@@ -1,0 +1,40 @@
+<VirtualHost <%= node['ipaddress'] %>:<%= node[:load_balancer][:port]%>>
+        ServerName <%= node['ipaddress'] %>
+
+        ErrorLog logs/load-balancer-error_log
+        CustomLog logs/load-balancer-access_log combined
+        DocumentRoot /var/empty
+#        SSLProxyEngine On
+#        ProxyRequests Off
+
+        <Proxy *>
+          Order deny,allow
+          Allow from all
+        </Proxy>
+	Header add Set-Cookie "BALANCEID=.%{BALANCER_WORKER_ROUTE}e; path=/" env=BALANCER_ROUTE_CHANGED
+        Timeout <%= node[:load_balancer][:timeout]%>
+        ProxyTimeout <%= node[:load_balancer][:proxy_timeout]%>
+        ProxyPass /balancer-manager !
+        ProxyPass / balancer://<%= node['ipaddress'] %>/ stickysession=BALANCEID|balanceid nofailover=On
+        <% node["load_balancer"]["web_ip"].each do |ipaddress| %>
+        ProxyPassReverse / http://<%= ipaddress %> route=<%= ipaddress %>
+        <% end %>
+
+        <Proxy balancer://<%= node['ipaddress'] %>>
+          <% node["load_balancer"]["web_ip"].each do |ipaddress| %>
+          BalancerMember http://<%= ipaddress %> route=<%= ipaddress %> retry=<%= node[:load_balancer][:retries]%> max=<%= node[:load_balancer][:max]%> timeout=<%= node[:load_balancer][:timeout]%>
+          <% end %>
+          ProxySet lbmethod=byrequests
+        </Proxy>
+
+
+        <Location /balancer-manager>
+          SetHandler balancer-manager
+        </Location>
+
+        <Directory "/var/empty">
+           AllowOverride AuthConfig
+        </Directory>
+
+
+</VirtualHost>
