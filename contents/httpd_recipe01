@@ -1,11 +1,11 @@
 # yumでhttpdをインストール
-package “install httpd!” do
+package "install httpd!" do
   package_name "httpd"
   action :install
 end
 
 # httpdのサービスを起動
-service “httpd” do
+service "httpd" do
   action [:enable, :start]
 end
 
