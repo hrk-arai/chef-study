@@ -1,0 +1,23 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+# Uncomment the following verifier to leverage Inspec instead of Busser (the
+# default verifier)
+# verifier:
+#   name: inspec
+
+platforms:
+#  - name: ubuntu-14.04
+  - name: centos-7.2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[example_wordpress::default]
+    attributes:
+      example_wordpress:
+        db01_ipaddress: "192.168.33.13"

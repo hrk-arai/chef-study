@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+  network:
+  - ["forwarded_port", {guest: 80, host: 8080}]
+  - ["private_network", { ip: "192.168.33.10" }]
+
+provisioner:
+  name: chef_zero
+
+# Uncomment the following verifier to leverage Inspec instead of Busser (the
+# default verifier)
+# verifier:
+#   name: inspec
+
+platforms:
+#  - name: ubuntu-14.04
+  - name: centos-7.2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[example_load_balancer::default]
+    attributes:
+      example_load_balancer:
+        wp01_ipaddress: "192.168.33.11"
+        wp02_ipaddress: "192.168.33.12"

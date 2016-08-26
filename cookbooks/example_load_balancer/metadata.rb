@@ -1,0 +1,7 @@
+name 'example_load_balancer'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'all_rights'
+description 'Installs/Configures example_load_balancer'
+long_description 'Installs/Configures example_load_balancer'
+version '0.1.0'

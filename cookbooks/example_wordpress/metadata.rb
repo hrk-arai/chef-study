@@ -1,0 +1,7 @@
+name 'example_wordpress'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'all_rights'
+description 'Installs/Configures example_wordpress'
+long_description 'Installs/Configures example_wordpress'
+version '0.1.0'

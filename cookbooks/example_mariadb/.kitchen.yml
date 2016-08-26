@@ -1,0 +1,26 @@
+---
+driver:
+  name: vagrant
+  network:
+  - ["private_network", { ip: "192.168.33.13" }]
+
+provisioner:
+  name: chef_zero
+
+# Uncomment the following verifier to leverage Inspec instead of Busser (the
+# default verifier)
+# verifier:
+#   name: inspec
+
+platforms:
+#  - name: ubuntu-14.04
+  - name: centos-7.2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[example_mariadb::default]
+    attributes:
+      example_mariadb:
+        wp01_ipaddress: "192.168.33.11"
+        wp02_ipaddress: "192.168.33.12"
